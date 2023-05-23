@@ -1,37 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Event Registration Form</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Contact Form</title>
+  <style>
+    body {background-color: rgb(46, 131, 93);}
+
+    .form-container {
+      width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #f7fdfa;
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .form-container input[type="text"],
+    .form-container textarea {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .form-container input[type="submit"] {
+      background-color: #2f8d71;
+      color: rgb(216, 226, 223);
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .form-container input[type="submit"]:hover {
+      background-color: #3d703e;
+    }
+
+    .form-container .error {
+      color: rgb(185, 50, 50);
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Event Registration Form</h1>
-  <form id="eventRegistrationForm" onsubmit="return validateForm()">
-    <label for="fullName">Full Name:</label>
-    <input type="text" id="fullName" name="fullName" required>
+  <div class="form-container">
+    <h2>Contact Form</h2>
+    <form id="contact-form" onsubmit="validateForm(event)">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" required>
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+      <input type="submit" value="Submit">
+    </form>
+    <div id="success-message" style="display: none;">
+      <p>Thank you for your message!</p>
+    </div>
+  </div>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
+  <script>
+    function validateForm(event) {
+      event.preventDefault();
 
-    <label for="phone">Phone:</label>
-    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var message = document.getElementById('message').value;
 
-    <label for="events">Select Events:</label>
-    <input type="checkbox" id="event1" name="events" value="Event 1">Event 1
-    <input type="checkbox" id="event2" name="events" value="Event 2">Event 2
-    <input type="checkbox" id="event3" name="events" value="Event 3">Event 3
+      var errorContainer = document.getElementById('error-container');
+      var successMessage = document.getElementById('success-message');
 
-    <label for="dietaryPreferences">Dietary Preferences:</label>
-    <select id="dietaryPreferences" name="dietaryPreferences">
-      <option value="">Select</option>
-      <option value="Vegetarian">Vegetarian</option>
-      <option value="Vegan">Vegan</option>
-      <option value="Gluten-Free">Gluten-Free</option>
-    </select>
+      errorContainer.innerHTML = '';
 
-    <input type="submit" value="Register">
-  </form>
+      if (!name) {
+        errorContainer.innerHTML += '<p class="error">Please enter your name.</p>';
+      }
 
-  <script src="script.js"></script>
+      if (!email) {
+        errorContainer.innerHTML += '<p class="error">Please enter your email address.</p>';
+      } else if (!validateEmail(email)) {
+        errorContainer.innerHTML += '<p class="error">Please enter a valid email address.</p>';
+      }
+
+      if (!message) {
+        errorContainer.innerHTML += '<p class="error">Please enter a message.</p>';
+      }
+
+      if (!errorContainer.innerHTML) {
+        // Form is valid, submit it or perform any desired action here
+        successMessage.style.display = 'block';
+        document.getElementById('contact-form').reset();
+      }
+    }
+
+    function validateEmail(email) {
+      var re = /\S+@\S+\.\S+/;
+      return re.test(email);
+    }
+  </script>
 </body>
 </html>
