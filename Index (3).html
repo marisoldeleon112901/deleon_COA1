@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Event Registration Form</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>Event Registration Form</h1>
+  <form id="eventRegistrationForm" onsubmit="return validateForm()">
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" name="fullName" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="phone">Phone:</label>
+    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+
+    <label for="events">Select Events:</label>
+    <input type="checkbox" id="event1" name="events" value="Event 1">Event 1
+    <input type="checkbox" id="event2" name="events" value="Event 2">Event 2
+    <input type="checkbox" id="event3" name="events" value="Event 3">Event 3
+
+    <label for="dietaryPreferences">Dietary Preferences:</label>
+    <select id="dietaryPreferences" name="dietaryPreferences">
+      <option value="">Select</option>
+      <option value="Vegetarian">Vegetarian</option>
+      <option value="Vegan">Vegan</option>
+      <option value="Gluten-Free">Gluten-Free</option>
+    </select>
+
+    <input type="submit" value="Register">
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>
